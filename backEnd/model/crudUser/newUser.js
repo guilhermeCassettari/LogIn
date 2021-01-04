@@ -1,52 +1,33 @@
-const mysql = require('mysql')
 const dbConfig = require('../dbConfig/dbConfig')
+const bcrypt = require('bcrypt');
 
-const newUser = (userName, userPassword) => {
+const mysql = require('mysql')
+// const dbConfig = require('../dbConfig/dbConfig')
 
-    var con = mysql.createConnection({ ...dbConfig })
+const newUser = async (userName, userPassword) => {
 
-    try {
-        con.connect((err) => {
-            let sqlCreateUser = `INSERT INTO users(name, password) VALUES ?;`
-            values = [userName, userPassword]
-            con.query(sqlCreateUser, [values], (err, result) => {
-                if (err) throw err
-                console.log(" dados inseridos com sucesso" + result)
-            })
+  var con = mysql.createConnection({ ...dbConfig })
 
-        })
-    } catch (error) {
-        return console.log(error)
-    }
+  // this number 10 is a strong of encrypt
+  const bryptPassword = await bcrypt.hash(userPassword, 10);
+  var responseUserCreated = {message: ""}
+
+  try {
+    con.connect( async (err) => {
+      let sqlCreateUser = `INSERT INTO users (name, password) VALUES ('${userName}' , '${bryptPassword}');`
+      await con.query(sqlCreateUser, (err, result) => {
+
+        return  result 
+        console.log(responseUserCreated)
+      })
+    })
+  } catch (error) {
+    return error
+  }
+console.log(responseUserCreated)
+  return responseUserCreated
 
 }
 
 module.exports = newUser
 
-/**
-    con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "INSERT INTO customers (name, address) VALUES ?";
-  var values = [
-    ['John', 'Highway 71'],
-    ['Peter', 'Lowstreet 4'],
-    ['Amy', 'Apple st 652'],
-    ['Hannah', 'Mountain 21'],
-    ['Michael', 'Valley 345'],
-    ['Sandy', 'Ocean blvd 2'],
-    ['Betty', 'Green Grass 1'],
-    ['Richard', 'Sky st 331'],
-    ['Susan', 'One way 98'],
-    ['Vicky', 'Yellow Garden 2'],
-    ['Ben', 'Park Lane 38'],
-    ['William', 'Central st 954'],
-    ['Chuck', 'Main Road 989'],
-    ['Viola', 'Sideway 1633']
-  ];
-  con.query(sql, [values], function (err, result) {
-    if (err) throw err;
-    console.log("Number of records inserted: " + result.affectedRows);
-  });
-});
- */
