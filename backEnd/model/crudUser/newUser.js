@@ -2,7 +2,9 @@ const dbConfig = require('../dbConfig/dbConfig')
 const bcrypt = require('bcrypt');
 
 const mysql = require('mysql')
-// const dbConfig = require('../dbConfig/dbConfig')
+
+const bcrypt = require('bcrypt')
+
 
 const newUser = async (userName, userPassword) => {
 
