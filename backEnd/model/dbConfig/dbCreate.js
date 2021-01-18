@@ -1,7 +1,7 @@
 const mysql = require('mysql')
 
-const firstDbConfig = require('./dbConfig/firstDbConfig')
-const dbConfig = require('./dbConfig/dbConfig')
+const firstDbConfig = require('./firstDbConfig')
+const dbConfig = require('./dbConfig')
 
 let firstCon = mysql.createConnection({ ...firstDbConfig })
 let con = mysql.createConnection({ ...dbConfig })
