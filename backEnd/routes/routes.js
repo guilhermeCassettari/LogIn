@@ -1,16 +1,18 @@
 const express = require('express')
 const router = express.Router()
 
-const getUserController = require('../controllers/getUserController')
-const postRegisterController = require('../controllers/postRegisterController')
-const deleteUserController = require('../controllers/deleteUserController')
-const updateUserController = require('../controllers/updateUserController')
-const loginUserController = require('../controllers/loginUserController')
+const getUserController = require('../controllers/crudUser/getUserController')
+const postRegisterController = require('../controllers/crudUser/postRegisterController')
+const deleteUserController = require('../controllers/crudUser/deleteUserController')
+const updateUserController = require('../controllers/crudUser/updateUserController')
+const loginUserController = require('../controllers/crudUser/loginUserController')
 
-router.get('/', getUserController.get)
+const authUser = require('../controllers/authUser/auth')
+
+router.get('/',authUser, getUserController.get)
 router.post('/register', postRegisterController.post)
-router.delete('/delete', deleteUserController.delete)
-router.put('/update', updateUserController.put)
+router.delete('/delete', authUser, deleteUserController.delete)
+router.put('/update', authUser, updateUserController.put)
 router.get('/login', loginUserController.get)
 
 module.exports = router

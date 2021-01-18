@@ -6,7 +6,7 @@ const dbConfig = require('./dbConfig/dbConfig')
 let firstCon = mysql.createConnection({ ...firstDbConfig })
 let con = mysql.createConnection({ ...dbConfig })
 
-const createTableUser = "CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), password VARCHAR(255))";
+const createTableUser = "CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, phone VARCHAR(255) NOT NULL)";
 
 firstCon.connect(async (err) => {
     try {
