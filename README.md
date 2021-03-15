@@ -1,2 +1,6 @@
 # LogIn
- Basic log in with NodeJs, ReactJs and Flutter
+Sistema Básico de Login uitilizando nodeJs e Mysql
+
+#Como usar 
+Clone o repositório e de um node i
+
